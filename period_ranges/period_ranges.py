@@ -26,7 +26,7 @@ class Period:
     def year(self):
         if self.type == Period.WEEK:
             # 1-1-2016 -> week 53 of 2015
-            return self.start.isocalendar()[1]
+            return self.start.isocalendar()[0]
         return self.start.year
 
     @property
