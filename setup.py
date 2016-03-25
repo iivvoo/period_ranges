@@ -15,7 +15,7 @@ with open('HISTORY.md') as history_file:
     history = history_file.read()
 
 requirements = [
-    # TODO: put package requirements here
+    'python-dateutil'
 ]
 
 test_requirements = [
