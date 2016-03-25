@@ -13,9 +13,11 @@ Create ranges of spefic interval periods (quarters, weeks, months) each starting
 # Examples
 
 ```python
+>>> from datetime import datetime
 >>> from period_ranges import generate_range, Period
 
->>> range = list(generate_range(datetime(2016, 2, 12), datetime(2017,4,1), Period.QUARTER))
+>>> range = list(generate_range(datetime(2016, 2, 12),
+... datetime(2017,4,1), Period.QUARTER))
 >>> print(range)
 [Quarter 1 of year 2016, Quarter 2 of year 2016, Quarter 3 of year 2016, Quarter 4 of year 2016, Quarter 1 of year 2017, Quarter 2 of year 2017]
 
@@ -29,5 +31,9 @@ Create ranges of spefic interval periods (quarters, weeks, months) each starting
 >>> range = list(generate_range(datetime(2016, 2, 12)))
 >>> print(range[0], range[0].start, range[0].end)
 Month 2 of year 2016 2016-02-01 00:00:00 2016-02-29 23:59:59
+>>> datetime(2016, 2, 12) in range[0]
+True
+>>> datetime(2016, 3, 12) in range[0]
+False
 
 ```
