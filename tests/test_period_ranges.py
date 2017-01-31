@@ -10,7 +10,7 @@ Tests for `period_ranges` module.
 
 import unittest
 
-from period_ranges import period_ranges
+# from period_ranges import period_ranges
 
 
 class TestPeriod_ranges(unittest.TestCase):
