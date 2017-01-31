@@ -1,4 +1,4 @@
-from dateutil.relativedelta import relativedelta, SU
+from dateutil.relativedelta import relativedelta, MO
 from datetime import datetime
 
 
@@ -59,29 +59,30 @@ class Period:
     __repr__ = __str__
 
 
-def generate_range(start, end=None, type=Period.MONTH, FIRST_DAY_OF_WEEK=SU):
+def generate_range(start, end=None, type=Period.MONTH, FIRST_DAY_OF_WEEK=MO,
+                   amount=1):
     end = end or start
 
     if type == Period.DAY:
         inv_start = start
-        interval = relativedelta(days=1)
+        interval = relativedelta(days=amount)
 
     if type == Period.WEEK:
         inv_start = start + relativedelta(weekday=FIRST_DAY_OF_WEEK(-1))
-        interval = relativedelta(weeks=1)
+        interval = relativedelta(weeks=amount)
 
     elif type == Period.MONTH:
         inv_start = datetime(start.year, start.month, 1)
-        interval = relativedelta(months=1)
+        interval = relativedelta(months=amount)
 
     elif type == Period.QUARTER:
         first_month_of_quarter = ((start.month - 1) // 3) * 3 + 1
         inv_start = datetime(start.year, first_month_of_quarter, 1)
-        interval = relativedelta(months=3)
+        interval = relativedelta(months=amount * 3)
 
     elif type == Period.YEAR:
         inv_start = datetime(start.year, 1, 1)
-        interval = relativedelta(years=1)
+        interval = relativedelta(years=amount)
 
     while end >= inv_start:
         inv_end = inv_start + interval - \
