@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='period_ranges',
-    version='0.1.0',
+    version='0.1.1',
     description="Create ranges of spefic interval periods"
                 " (quarters, weeks, months)"
                 " each starting at their base date",
