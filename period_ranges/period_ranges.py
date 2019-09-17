@@ -1,13 +1,14 @@
 from dateutil.relativedelta import relativedelta, MO
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Period:
-    DAY = 1
-    WEEK = 2
-    MONTH = 3
-    QUARTER = 4
-    YEAR = 5
+    HOUR = 1
+    DAY = 2
+    WEEK = 3
+    MONTH = 4
+    QUARTER = 5
+    YEAR = 6
 
     def __init__(self, start, end, type=MONTH):
         self.start = start
@@ -43,6 +44,8 @@ class Period:
         return self.start <= dt <= self.end
 
     def __str__(self):
+        if self.type == self.HOUR:
+            return "Hour {0}".format(self.start)
         if self.type == self.DAY:
             return "Day {0}".format(self.start)
         if self.type == self.WEEK:
@@ -62,6 +65,10 @@ class Period:
 def generate_range(start, end=None, type=Period.MONTH, FIRST_DAY_OF_WEEK=MO,
                    amount=1):
     end = end or start
+
+    if type == Period.HOUR:
+        inv_start = start
+        interval = relativedelta(hours=amount)
 
     if type == Period.DAY:
         inv_start = start
@@ -96,6 +103,16 @@ if __name__ == '__main__':
 
     start = datetime(2015, 11, 23, 0, 0, 0)
     end = datetime(2016, 4, 1, 0, 0, 0)
+
+    print("Hours")
+    hours = generate_range(start, start+timedelta(days=1), Period.HOUR)
+
+    pprint.pprint(list(hours))
+
+    print("Days")
+    days = generate_range(start, end, Period.DAY)
+
+    pprint.pprint(list(days))
 
     print("Weeks")
     week = generate_range(start, end, Period.WEEK)
